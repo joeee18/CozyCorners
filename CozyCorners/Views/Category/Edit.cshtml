@@ -1,0 +1,45 @@
+﻿@model CategoryVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+
+<div class="w-75 m-auto p-5 mt-5  " style="background-color:#F5F5F7;">
+
+    <form asp-controller="Category" asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group mt-4">
+            <label asp-for="Name"></label>
+            <input type="text" asp-for="Name" class="form-control" >
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <label asp-for="Description"></label>
+            <input type="text" asp-for="Description" class="form-control">
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label>Photo</label>
+            <input hidden asp-for="photo"/>
+            <img src="@Model.photo" style="width:100px;height:100px;" />
+        </div>
+
+
+        <div class="form-group mt-4">
+            <label asp-for="FilePath"></label>
+            <input type="file" asp-for="FilePath" class="form-control">
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-footer mt-6">
+            <button class="btn btn-danger mt-4" type="submit">Save</button>
+            @*  <button asp-action="Index" class="btn btn-primary ">Back To List</button> *@
+        </div>
+
+    </form>
+
+</div>

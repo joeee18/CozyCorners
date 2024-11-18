@@ -1,0 +1,91 @@
+﻿@model CozyCorners.ViewModels.UserFormViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<div class="container-fluid p-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="page-title"> Add user </h2>
+
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <strong class="card-title">Form controls</strong>
+                </div>
+                <form asp-action="AddUser" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <div class="row">
+                            @* <input hidden asp-for="Id" /> *@
+                            <div class="col-md-6">
+
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput"> User Name</label>
+                                    <input type="text" id="simpleinput" asp-for="UserName" class="form-control">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="simpleinput"> Display Name</label>
+                                    <input type="text" id="simpleinput" asp-for="DisplayName" class="form-control">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="example-email">Email</label>
+                                    <input type="email" id="example-email" asp-for="Email" class="form-control">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="example-palaceholder">Phone </label>
+                                    <input type="text" id="example-palaceholder" asp-for="PhoneNumber" class="form-control" placeholder="placeholder">
+                                </div>
+                            </div> <!-- /.col -->
+                            <div class="col-md-6">
+
+
+
+                                <div class="form-group mb-3">
+                                    <label for="exampleFormControlInput1" asp-for="Password"></label>
+                                    <input asp-for="Password" class="form-control" id="exampleFormControlInput1">
+                                </div>
+                                <select asp-for="RoleId" class="form-control form-select form-select-lg mb-3" aria-label="Large select example" asp-items="@(Model.Roles != null ? new SelectList(Model.Roles, "Id", "Name") : null)">
+                                    <option value="0">Select a Role Name</option>
+                                </select>
+
+                              @*   <div class="form-group mb-3">
+                                    <label for="example-palaceholder">Photo</label>
+                                    <input type="file" id="example-palaceholder" asp-for="Photo" class="form-control" placeholder="placeholder">
+                                </div> *@
+
+                                <h3>Manage Roles</h3>
+
+                              @*   @for (int i = 0; i < Model.Roles.Count(); i++)
+                                {
+                                   <div>
+                                        <input asp-for="@Model.Roles[i].na" hidden />
+                                       <input asp-for="@Model.RoleForm.Roles[i].IsSelected" class="form-check-input" />
+                                        <label class="form-check-label" asp-for="@Model.RoleForm.Roles[i]">@Model.RoleForm.Roles[i].RoleName</label>
+                                        <span asp-validation-for="RoleForm.Roles" class="text-danger"></span>
+ 
+
+                                    </div> 
+                                } *@
+                            </div>
+                            <div class="form-footer mt-6">
+                                <button type="submit" class="btn btn-danger">Save</button>
+                                <button asp-action="Index" class="btn btn-primary ">Back To List</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

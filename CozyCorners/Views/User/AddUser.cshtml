@@ -1,0 +1,69 @@
+﻿@model UserFormViewModel
+
+@{
+    ViewData["Title"] = "AddUser";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+
+<div class="w-75 m-auto p-5 mt-5 bg-white ">
+   
+    <form asp-controller="User" enctype="multipart/form-data">
+     <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group mt-4">
+            <label  asp-for="UserName"></label>
+            <input type="text" asp-for="UserName" class="form-control" placeholder="Enter Username">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <label  asp-for="DisplayName"></label>
+            <input type="text" asp-for="DisplayName" class="form-control" placeholder="Enter DispalyName ">
+            <span asp-validation-for="DisplayName"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <label  asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" placeholder="Enter Email ">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="Enter Phone">
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label  >Role</label>
+        <select class="form-select" asp-for="RoleId" asp-items="Model.Roles">
+            <option></option>
+          
+        </select>
+            <span asp-validation-for="RoleId" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label  asp-for="PhotoFile"></label>
+            <input type="file" asp-for="PhotoFile" class="form-control">
+            <span asp-validation-for="PhotoFile" class="text-danger"></span>
+        </div>
+    
+
+        <div class="form-group mt-4">
+        <label  asp-for="Password"></label>
+        <input asp-for="Password" class="form-control">
+        <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+       
+
+        <div class="form-footer mt-6">
+            <button  class="btn btn-danger mt-4" type="submit">Save</button>
+           @*  <button asp-action="Index" class="btn btn-primary ">Back To List</button> *@
+        </div>
+
+    </form>
+
+    </div>
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

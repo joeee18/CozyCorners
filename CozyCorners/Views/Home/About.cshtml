@@ -1,0 +1,50 @@
+﻿@using CozyCorners.Core.Models
+@model List<Category>
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/images/img_bg_2.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="display-t">
+                    <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                        <h1>Our Categories</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="clearfix"></div>
+
+<div id="fh5co-product">
+    <div class="container">
+        @if (Model.Count() > 0)
+        {
+            for (int i = 0; i < Model.Count(); i += 3)
+            {
+                        <div class="row">
+                    @for (int j = 0; j < 3; j++)
+                    {
+                        if (i + j < Model.Count())
+                        {
+                                            <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+                                                <div class="feature-center animate-box" data-animate-effect="fadeIn">
+                                                    <span>
+                                                        <img src="@Model[i + j].PhotoPath" style="width:100%; height:180px; object-fit:cover;" />
+                                                    </span>
+                                                    <h3>@Model[i + j].Name</h3>
+                                                    <p>@Model[i + j].Description</p>
+                                                    <p><a asp-action="SeeMore" asp-route-id="@Model[i + j].Id" asp-controller="Product" class="btn btn-primary btn-outline">See More</a></p>
+                                                </div>
+                                            </div>
+                        }
+                    }
+                        </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model UserFormViewModel
+@{
+    ViewData["Title"] = "AddToRole";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<h1>AddToRole</h1>
+
+
+<div class="w-75 m-auto p-5 mt-4 bg-white">
+    <form method="post" asp-action="AddToRole">
+          
+        <div>
+            <label asp-for="UserName" class="control-label"></label>
+            <input asp-for="UserName" class="form-control" disabled />
+        </div>
+
+        <h3>Manage Roles</h3>
+        <hr />
+        <div class="form-group">
+            <label class="col-form-label">Role Name</label>
+            <select asp-for="RoleId" class="form-select  form-select-lg mb-3" aria-label="Large select example" asp-items="@(new SelectList(Model.Roles,"Id","Name"))">
+                <option value="0">select a Role Name</option>
+            </select>
+            @*  <span asp-validation-for="Product.Name" class="text-danger"></span> *@
+        </div>
+
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-danger">Save</button>
+            <button asp-action="Index" class="btn btn-primary ">Back To List</button>
+        </div>
+
+
+    </form>
+
+</div>

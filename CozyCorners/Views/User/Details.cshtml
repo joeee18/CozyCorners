@@ -1,0 +1,54 @@
+﻿@model UserFormViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<div class="w-75 m-auto p-5 mt-4 bg-white">
+<h1>User Details</h1>
+
+<form  >
+    @* <input hidden asp-for="Id" /> *@
+    <div class="form-group mt-4">
+        <label for="exampleFormControlInput1" asp-for="UserName"></label>
+        <input readonly asp-for="UserName" class="form-control" id="exampleFormControlInput1">
+
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="exampleFormControlInput1" asp-for="DisplayName"></label>
+        <input readonly asp-for="DisplayName" class="form-control" id="exampleFormControlInput1">
+
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="exampleFormControlInput1" asp-for="Email"></label>
+        <input readonly asp-for="Email" class="form-control" id="exampleFormControlInput1">
+
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="exampleFormControlInput1" asp-for="PhoneNumber"></label>
+        <input readonly asp-for="PhoneNumber" class="form-control" id="exampleFormControlInput1">
+
+    </div>
+
+  
+   @*  <div class="form-group">
+        <img src="~/@Model.Photo" width="90" height="90" class="rounded-2 img-fluid" />
+    </div> *@
+
+   @*  <div class="form-group mt-4">
+        <label for="exampleFormControlInput1" asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" id="exampleFormControlInput1">
+        </div> *@
+        <div class="form-footer mt-6">
+            <button class="btn btn-danger"><a  asp-action="Edit" asp-controller="User">Edit</a></button>
+            <button  class="btn btn-primary "><a  asp-action="Index" asp-controller="User">Back To List</a></button>
+        </div>
+
+</form>
+
+
+</div>
+

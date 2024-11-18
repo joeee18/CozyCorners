@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Order>
+
+
+@{
+    ViewData["Title"] = "AllOrders";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+
+<div class="w-100 m-auto bg-white p-5 mt-5">
+    @* <a class="btn btn-primary" asp-controller="Category" asp-action="Create">Add New Category</a>
+ *@
+   
+    <h1 class="mt-5 pt-5">All Orders</h1>
+    <hr />
+
+    @if (Model.Count() > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">CustomerEmail</th>
+                        <th scope="col">Order Status</th>
+                        <th scope="col">Total</th>
+                        <th>Action</th>
+                        @*  <th>Active</th> *@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">@item.Id</td>
+                            <td>@item.CustomerEmail</td>
+                            <td>@item.Status</td>
+                            <td>@item.SubTotal</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+   @*                                      <li><a class="dropdown-item" asp-action="Confirm" asp-route-id="@item.Id">Confirm</a></li>
+                                        <li><a class="js-delete dropdown-item" href="javascript:void(0);" data-Cid="@item.Id">Cancel</a></li> *@
+                                        <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id">Details</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-danger w-50 m-auto bg-white">There are no Orders</div>
+    }
+</div>

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "CatNotFound";
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+<div class="text-center">
+ 
+    <img src="~/images/cart3.png" style="height:100vh; width=200px;" />
+    <h1 class="text-bold ">
+        Your shopping cart is empty
+    </h1>
+    <p>Let's do some shopping</p>
+   
+    <a asp-action="Index" asp-controller="Home" class="btn p-5 text-body">  <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
+</div>

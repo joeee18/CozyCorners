@@ -1,0 +1,52 @@
+﻿@model ProductVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+
+<div class="w-75 m-auto p-5 mt-5  " style="background-color:whitesmoke;">
+
+    <form asp-controller="Product" asp-action="Index" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-group mt-4">
+            <label asp-for="Name"></label>
+            <input readonly type="text" asp-for="Name" class="form-control" >
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label asp-for="CategoryName"></label>
+            <input readonly type="text" asp-for="CategoryName" class="form-control" >
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label asp-for="Description"></label>
+            <input readonly type="text" asp-for="Description" class="form-control"  >
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label asp-for="Price"></label>
+            <input readonly type="text" asp-for="Price" class="form-control" >
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4">
+            <label asp-for="Rating"></label>
+            <input readonly type="text" asp-for="Rating" class="form-control" >
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-4">
+            <label>Photo</label>
+            <img src="@Model.PhotoPath" style="width:100px;height:100px;" />
+        </div>
+
+
+        <div class="form-footer mt-6">
+            <button class="btn btn-danger mt-4" type="submit">Back To List</button>
+            @*  <button asp-action="Index" class="btn btn-primary ">Back To List</button> *@
+        </div>
+
+    </form>
+
+</div>

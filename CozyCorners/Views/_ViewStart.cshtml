@@ -1,0 +1,18 @@
+﻿@using CozyCorners.Core.Models.Identity
+@inject UserManager<AppUser> userManager
+
+@{
+    Layout = "_LayoutSite";
+}
+
+    @* var x = User.IsInRole("Admin"); *@
+  
+@* @if (User.IsInRole("Admin"))
+{
+        Layout = "_LayoutDashBoard";
+}
+else 
+{
+  Layout ="_LayoutSite"; // Sets the layout for all views that don't explicitly set one
+}
+ *@

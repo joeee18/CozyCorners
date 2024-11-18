@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProductVM>
+@{
+    ViewData["Title"] = "SeeMore";
+}
+<div id="fh5co-services" class="fh5co-bg-section">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-sm-4 text-center">
+                    <div class="feature-center animate-box" data-animate-effect="fadeIn">
+
+                        <span class="icon">
+                            <a asp-route-id="@item.Id" asp-action="ProductDetails" asp-controller="Product">
+                                <img src="@item.PhotoPath" style="object-fit: cover;" alt="Product Image" />
+                            </a>
+                        </span>
+
+                        <h2> @item.Name</h2>
+                        <h2> @item.Price </h2>
+                        <form method="post" asp-action="AddCart" asp-controller="Cart" class="add-to-cart-form">
+
+                            <input type="hidden" name="ProductId" value="@item.Id" />
+                            <input hidden name="quantity" value="1" />
+                            <button type="submit" class=" btn-primary mt-3">Add to Cart</button>
+                        </form>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿.custom-margin {
+    margin-top: 20px; /* Adjust the value based on your preference */
+    margin-bottom: 20px; /* Adjust the value based on your preference */
+}
+/* Add margin/padding for layout consistency */
+.custom-margin {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.cart-item {
+    padding: 1rem;
+}
+
+.card {
+    border-radius: 10px;
+    padding:20px;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+h6, p {
+    margin-bottom: 0.5rem;
+}
+
+.fh5co-cover-sm {
+    background-position: center center;
+    background-size: cover;
+}
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+.clearfix:before {
+    content: "";
+    display: table;
+    clear: both;
+}
+.card {
+    border: 1px solid #ced4da; /* Set a border color */
+    border-radius: 0.5rem; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+    transition: box-shadow 0.3s ease; /* Smooth transition */
+    padding:20px;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+    }
+
+.form-label {
+    font-weight: 600; /* Make labels bold */
+}

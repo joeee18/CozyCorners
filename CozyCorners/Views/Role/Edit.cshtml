@@ -1,0 +1,27 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<div class="w-75 m-auto p-5 mt-4 bg-white">
+    <h1>Edit Role</h1>
+
+    <form method="post" asp-action="Edit">
+        <input hidden asp-for="Id" />
+        <div class="form-group mt-4">
+            <label for="exampleFormControlInput1" asp-for="RoleName"></label>
+            <input asp-for="RoleName" class="form-control" id="exampleFormControlInput1">
+
+        </div>
+
+
+        <div class="form-footer mt-6">
+            <button type="submit" class="btn btn-danger">Save</button>
+            <button asp-action="Index" class="btn btn-primary ">Back To List</button>
+        </div>
+        <span asp-validation-for="RoleName" class="text-danger"></span>
+    </form>
+
+
+</div>

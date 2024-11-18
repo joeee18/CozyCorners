@@ -1,0 +1,117 @@
+﻿    <!-- Sidebar -->
+<div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+            <a asp-action="Index" asp-controller="Admin" class="logo">
+              <i class="fa-solid fa-house"></i>
+            </a>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
+            </div>
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+            </button>
+        </div>
+        <!-- End Logo Header -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+                <li class="nav-item active">
+                    <a data-bs-toggle="collapse"
+                       href="#dashboard"
+                       class="collapsed"
+                       aria-expanded="false">
+                        <i class="fas fa-home"></i>
+                        <p>Dashboard</p>
+                        <span class="caret"></span>
+                    </a>
+                   
+                </li>
+                
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#base">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Manage Users</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="base">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a asp-action="Index" asp-controller="Role">
+                                    <span class="sub-item">Roles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Index" asp-controller="User">
+                                    <span class="sub-item">Users</span>
+                                </a>
+                            </li>
+                            
+
+                            
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarLayouts">
+                        <i class="fas fa-th-list"></i>
+                        <p>Manage Category</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="sidebarLayouts">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a asp-controller="Category" asp-action="Index">
+                                    <span class="sub-item">Category</span>
+                                </a>
+                            </li>
+                         
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#forms">
+                        <i class="fas fa-pen-square"></i>
+                        <p>Manage Product</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="forms">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a asp-controller="Product" asp-action="Index">
+                                    <span class="sub-item">Product</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#ord">
+                        <i class="fas fa-pen-square"></i>
+                        <p>Manage Order</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="ord">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a asp-controller="Order" asp-action="AllOrders">
+                                    <span class="sub-item">Orders</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                           
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->

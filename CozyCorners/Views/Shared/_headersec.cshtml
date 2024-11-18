@@ -1,0 +1,153 @@
+﻿@using CozyCorners.Core.Models.Identity
+@using CozyCorners.Core.Repositories.Contract
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@inject ICartRepository CartRepo
+@inject IOrderRepository order
+
+<nav class="fh5co-nav" role="navigation">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Logo Section -->
+            <div class="col-md-3 col-xs-2">
+                <div id="fh5co-logo">
+                    <a asp-action="Index" asp-controller="Home">CozyCorner</a>
+                </div>
+            </div>
+
+            <!-- Middle Menu Section -->
+            <div class="col-md-5 col-xs-5 text-center menu-1">
+                <ul class="d-flex justify-content-center align-items-center list-unstyled m-0">
+                    <li class="has-dropdown me-3">
+                        <a asp-action="Shop" asp-controller="Product">Shop</a>
+                        <ul class="dropdown">
+                            <li><a asp-action="Shop" asp-controller="Product">Shop</a></li>
+                        </ul>
+                    </li>
+                    <li class="me-3"><a asp-action="About" asp-controller="Home">About</a></li>
+                    <li class="has-dropdown me-3">
+                        <a asp-area ="" asp-action="Services" asp-controller="Home">Services</a>
+                    </li>
+                    <li><a asp-area ="" asp-action="Contact" asp-controller="Home">Contact Us </a></li>
+                </ul>
+            </div>
+         
+            <!-- Search, Cart, and User Icon Section -->
+            <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+               
+                <ul >
+
+                    <!-- Shopping Cart Icon -->
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        var cartid = UserManager.GetUserId(User);
+                        <li class="shopping-cart ">
+                            <a asp-action="GetCart" asp-route-id="@cartid" asp-controller="Cart" class="cart">
+                                <span>
+                                    <small>@CartRepo.GetCustomerCartItemsAsync(cartid)</small>
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </span>
+                            </a>
+                        </li>
+                       
+                        <li class="shopping-cart ">
+                            <a asp-action="GetOrdersForUser" asp-route-id="@cartid" asp-controller="Order" class="cart">
+                                <span>
+
+                                    <i class="fa-solid fa-truck"></i>
+                                </span>
+                            </a>
+                        </li>
+                    }
+
+                    else
+                    {
+                        <li class="shopping-cart ">
+                            <a asp-action="GetCart" asp-controller="Cart" class="cart">
+                                <span>
+                                    <small>0</small>
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </span>
+                            </a>
+                        </li>
+                          <li class="shopping-cart ">
+                            <a asp-action="GetOrdersForUser" asp-controller="Order" class="cart">
+                                <span>
+
+                                    <i class="fa-solid fa-truck"></i>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @*  <!-- Search Bar -->
+                     <li class="search me-3">
+                         <div class="input-group">
+                             <input type="text" class="form-control" placeholder="Search..">
+                             <span class="input-group-btn">
+                                 <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
+                             </span>
+                         </div>
+                     </li> *@
+
+
+                    <!-- User Icon Dropdown -->
+                  
+                </ul>
+            </div>
+            <div @* class="col-md-1 col-xs-1 text-center menu-1" *@>
+                <ul>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                </li>
+                                <li>
+                                    <form asp-action="Logout" asp-controller="Account" method="post">
+                                        <button type="submit" class="btn btn-link">LogOut</button>
+                                    </form>
+                                </li>
+                            }
+                            else if (User.IsInRole("Admin") && SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a id="manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>
+                                </li>
+                                <li>
+                                    <form asp-action="Index" asp-controller="Admin" method="get">
+                                        <button type="submit" class="btn btn-link">Dashboard</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-action="Logout" asp-controller="Account" method="post">
+                                        <button type="submit" class="btn btn-link">LogOut</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <form asp-action="Register" asp-controller="Account" method="get">
+                                        <button type="submit" class="btn btn-link">Register</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-action="Signin" asp-controller="Account" method="get">
+                                        <button type="submit" class="btn btn-link">Login</button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+

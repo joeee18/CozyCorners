@@ -1,0 +1,103 @@
+﻿@model CozyCorners.Core.Models.Order.Order
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashBoard.cshtml";
+}
+
+<div class="row pt-5 mt-5 pb-5 mb-5">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Order Details</div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-4">
+                          <label>Order ID :@Model.Id</label>
+                        <div class="form-group">
+                            <label for="email2">Customer Name</label>
+                            <input readonly
+                                   type="email"
+                                   class="form-control"
+                                   value="@Model.AddressShipping.FName @Model.AddressShipping.LName" />
+
+                        </div>
+                        <div class="form-group">
+                          <label for="email2">Customer Email</label>
+                          <input readonly
+                            type="email"
+                            class="form-control"
+                           asp-for="@Model.CustomerEmail" />
+                         
+                        </div>
+                        <div class="form-group">
+                            <label for="email2">Order Date</label>
+                            <input readonly
+                                   type="email"
+                                   class="form-control"
+                                   asp-for="@Model.OrderDate" />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="email2">Status</label>
+                            <input readonly
+                                   type="email"
+                                   class="form-control"
+                                   asp-for="@Model.Status" />
+
+                        </div>
+                        <div class="form-group">
+                           
+                            <label for="email2">Shipping Address</label>
+                           <p>@Model.AddressShipping.City,@Model.AddressShipping.Country,@Model.AddressShipping.Street</p>
+
+                        </div>
+                        <div class="form-group">
+
+                            <label for="email2">Sub Total: @Model.SubTotal</label>
+                         
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-md-12 col-lg-8">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="col-md-12">
+                                <div class="card shadow-sm mb-4" style="border-radius: 10px;">
+                                    <div class="row g-0">
+                                        <!-- Image on the left -->
+                                        <div class="col-md-4">
+                                            <img src="@item.Product.PhotoUrl" class="img-fluid rounded-start" style="border-radius: 10px 0 0 10px; height:100%; object-fit: cover;" alt="@item.Product.ProductName" />
+                                        </div>
+
+                                        <!-- Content on the right -->
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@item.Product.ProductName</h5>
+                                                <p class="card-text">Quantity: @item.Quantity</p>
+                                                <p class="card-text fw-bold text-success">$ @item.PriceAtPurchase.ToString("F2")</p>
+                                                @* You can add more content or buttons here if needed *@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+
+                    </div>
+                     
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <a class="btn btn-success" asp-route-id="@Model.Id" asp-action="Confirm" asp-controller="Order">Confirm</a>
+            <a class="btn btn-danger" asp-route-id="@Model.Id" asp-action="Cancel" asp-controller="Order">Cancel</a>
+                  </div>
+                </div>
+              </div>
+           

@@ -1,0 +1,216 @@
+﻿@model CustomerCart
+@{
+    ViewData["Title"] = "GetCart";
+    decimal total = 0;
+}
+@if (Model != null && Model.CartItems.Count() > 0 && Model.CartItems.Any())
+{
+    <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm mb-5" role="banner" style="background-image:url(/images/img_bg_2.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                            <h1>Cart Details</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="clearfix"></div>
+
+    <!-- Start form to include all cart items and order summary -->
+    <form asp-action="CheckOut" asp-controller="Cart" method="post">
+        <section class="h-100 h-custom p-5 mt-5 mb-5 custom-margin">
+            <div class="container p-4 mb-5" style="padding:30px 15px 30px 15px;border-radius: 10px; border: 1px solid #dee2e6; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); background-color:#FFFFFF;">
+                <div class="row">
+                    <!-- Cart Items Section (Left) -->
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm mb-5" style="border-radius: 10px;">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h2 class="fw-bold">Shopping Cart</h2>
+                                    <h6 class="mb-0 text-muted">@Model.CartItems.Count() items</h6>
+                                </div>
+                                <hr class="my-3">
+
+                                <!-- Cart items list -->
+                                @for (int i = 0; i < Model.CartItems.Count(); i++)
+                                {
+                                    var itemSubtotal = Model.CartItems[i].Quantity * Model.CartItems[i].Price;
+                                    total += itemSubtotal;
+
+                                    <div class="row mb-3 d-flex justify-content-between align-items-center cart-item px-3">
+                                        <div class="col-md-2 px-3">
+                                            <img src="@Model.CartItems[i].ImageUrl" class="img-fluid rounded-3 shadow-sm" style="border: 1px solid #dee2e6;" />
+                                        </div>
+                                        <div class="col-md-4 px-3">
+                                            <h6 class="text-muted">@Model.CartItems[i].ProductName</h6>
+                                            <p class="mb-0 text-secondary small">@Model.CartItems[i].Category</p>
+                                        </div>
+                                        <div class="col-md-3 d-flex align-items-center px-3">
+                                            <button class="btn btn-outline-dark btn-sm px-2 minus-quantity" type="button">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input id="quantity-@i" class="quantity form-control form-control-sm text-center mx-2" min="1" type="number" value="@Model.CartItems[i].Quantity" data-price="@Model.CartItems[i].Price" />
+                                            <button class="btn btn-outline-dark btn-sm px-2 plus-quantity" type="button">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+
+                                            <!-- Hidden inputs to submit all item data -->
+                                            <input type="hidden" name="CartItems[@i].Id" value="@Model.CartItems[i].Id" />
+                                            <input type="hidden" name="CartItems[@i].ProductName" value="@Model.CartItems[i].ProductName" />
+                                            <input type="hidden" name="CartItems[@i].Category" value="@Model.CartItems[i].Category" />
+                                            <input type="hidden" name="CartItems[@i].Price" value="@Model.CartItems[i].Price" />
+                                            <input type="hidden" name="CartItems[@i].ImageUrl" value="@Model.CartItems[i].ImageUrl" />
+                                            <input type="hidden" name="CartItems[@i].Quantity" class="hidden-quantity" value="@Model.CartItems[i].Quantity" />
+                                        </div>
+                                        <div class="col-md-2 px-3">
+                                            <h6 class="mb-0">$ <span class="item-subtotal">@itemSubtotal.ToString("F2")</span></h6>
+                                        </div>
+                                        <div class="col-md-1 text-end px-3">
+                                            <a href="javascript:void(0);" data-cart-id="@Model.Id" data-product-id="@Model.CartItems[i].Id" class="text-muted js-delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <hr class="my-3">
+                                }
+
+                                <!-- Hidden Cart ID -->
+                                <input hidden asp-for="@Model.Id" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Section (Right) -->
+                    <div class="col-lg-12">
+                        <div class="card shadow-sm mt-4" style="border-radius: 10px;">
+                            <div class="card-body p-4">
+                                <h3 class="fw-bold mb-4">Order Summary</h3>
+                                <hr class="my-3">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                    <h5 class="text-uppercase mb-0 fw-bold ">Number Of Items: @Model.CartItems.Sum(item => item.Quantity)</h5>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="deliveryMethod" class="form-label fw-bold ">Select Delivery Method</label>
+                                    <select class="form-select" id="deliveryMethod" asp-for="DeliveryMethodId" required>
+                                        <option value="">-- Select Delivery Method --</option>
+                                        @foreach (var method in Model.DeliveryMethods)
+                                        {
+                                            <option value="@method.Id" data-cost="@method.Cost">@method.Name - €@method.Cost</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <p>Selected Delivery Method: <span id="selectedDeliveryMethod">None</span></p>
+                                <p>Delivery Cost: <span id="deliveryCost">€0.00</span></p>
+                               <hr />
+                               <div class="d-flex justify-content-between mb-5">
+                                       <h2>Total price :</h2>
+                                    <h4 id="total-price" class="fw-bold ">$ @total.ToString("F2")</h4>
+                                </div>
+
+                                <!-- Place Checkout Button -->
+                                <button type="submit" class="btn btn-primary btn-block mt-3">CheckOut</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+}
+else
+{
+    <div class="text-center">
+        <img src="~/images/cart3.png" style="height:300px;" class="mb-4" />
+        <h1 class="fw-bold">Your shopping cart is empty</h1>
+        <p class="lead">Let’s add some items!</p>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-dark btn-lg">
+            <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+        </a>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let deliveryCost = 0;
+
+            // DELETE cart item AJAX request
+            $('.js-delete').on("click", function () {
+                var cid = $(this).attr("data-cart-id");
+                var pid = $(this).attr("data-product-id");
+
+                $.ajax({
+                    url: "/Cart/DeleteCartItem?cartid=" + cid + "&productid=" + pid,
+                    method: "DELETE",
+                    success: function () {
+                        location.reload(); // Reload page after deletion
+                    }
+                });
+            });
+
+            // Update totals function
+            function updateTotals() {
+                let total = 0;
+
+                // Loop through each cart item
+                $('.cart-item').each(function () {
+                    const quantityInput = $(this).find('.quantity');
+                    const price = parseFloat(quantityInput.data('price'));
+                    const quantity = parseInt(quantityInput.val());
+
+                    if (!isNaN(quantity) && quantity > 0) {
+                        const subtotal = price * quantity;
+                        $(this).find('.item-subtotal').text(subtotal.toFixed(2));
+
+                        // Update hidden quantity field
+                        $(this).find('.hidden-quantity').val(quantity);
+
+                        total += subtotal; // Update total
+                    }
+                });
+
+                // Add delivery cost to total
+                total += deliveryCost;
+
+                $('#total-price').text(total.toFixed(2)); // Update total in the order summary
+            }
+
+            // Delivery method change
+            $('#deliveryMethod').on("change", function () {
+                deliveryCost = parseFloat($('option:selected', this).data('cost')) || 0;
+                $("#selectedDeliveryMethod").text($('option:selected', this).text());
+                $("#deliveryCost").text(deliveryCost.toFixed(2));
+                updateTotals();
+            });
+
+            // Quantity increase and decrease
+            $('.plus-quantity').on('click', function () {
+                const input = $(this).siblings('.quantity');
+                let value = parseInt(input.val());
+                if (value >= 1) {
+                    input.val(value + 1);
+                }
+                updateTotals();
+            });
+
+            $('.minus-quantity').on('click', function () {
+                const input = $(this).siblings('.quantity');
+                let value = parseInt(input.val());
+                if (value > 1) {
+                    input.val(value - 1);
+                }
+                updateTotals();
+            });
+
+            updateTotals(); // Initial calculation
+        });
+    </script>
+}
